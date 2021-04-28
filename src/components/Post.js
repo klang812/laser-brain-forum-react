@@ -5,10 +5,11 @@ function Post(props){
   return (
     <React.Fragment>
       <div onClick = {() => props.whenPostClicked(props.id)}>
-        <h3>{props.topic}</h3>
-        <h5>{props.title}</h5>
-        <p>{props.content}</p>
-        <p>{props.likes}</p>
+        <h3><strong>Topic: </strong>{props.topic}</h3>
+        <h5><strong>Movie Title: </strong>{props.title}</h5>
+        <p><strong>Post Content: </strong>{props.content}</p>
+        <p><strong>Likes: </strong>{props.likes}</p>
+        <p><strong>Click here for full details!</strong></p>
         <hr/>
       </div>
     </React.Fragment>

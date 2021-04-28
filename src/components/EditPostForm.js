@@ -10,7 +10,7 @@ function EditPostForm (props) {
     props.onEditPost({topic: event.target.topic.value,
                     title: event.target.title.value,
                     content: event.target.content.value,
-                    likes: parseFloat(event.target.likes.value),
+                    likes: post.likes,
                     id: post.id});
   }
 

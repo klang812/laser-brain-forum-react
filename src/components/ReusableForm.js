@@ -16,10 +16,6 @@ function ReusableForm(props) {
         <textarea
           name='content'
           placeholder='Post' />
-        <input
-          type='text'
-          name='likes'
-          placeholder='Likes' />
         <button type='submit'>{props.buttonText}</button>
       </form>
     </React.Fragment>
