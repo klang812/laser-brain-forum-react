@@ -53,29 +53,15 @@ class PostControl extends React.Component {
 			selectedPost: thumbsUp
 		});
 }
-  // handleThumbsUp = (id) => {
-  //   const chosenPost = this.state.masterPostList.filter(post => post.id === id)[0];
-  //   if (chosenPost) {
-  //     const newQuantity = (parseInt(chosenPost.quantity) + 1).toString();
-  //     chosenPost.quantity = newQuantity
-  //     this.setState({selectedPost: chosenPost})
-  //   }
-  // }
-
-  // handleThumbsDown = (id) => {
-  //   const chosenPost = this.state.masterPostList.filter(post => post.id === id)[0];
-  //   if (chosenPost) {
-  //     const newQuantity = (parseInt(chosenPost.quantity) - 1).toString();
-  //     chosenPost.quantity = newQuantity
-  //     this.setState({selectedPost: chosenPost})
-  //   }
-  // }
 
   handleAddingNewPostToList = (newPost) => {
     const newMasterPostList = this.state.masterPostList.concat(newPost);
     this.setState({masterPostList: newMasterPostList,
                   formVisibleOnPage: false});
   }
+//   handleSortingPostList = (id) => {
+//     const sortedList = this.state.masterPostList.filter(p)
+// }
 
   handleChangingSelectedPost = (id) => {
     const selectedPost = this.state.masterPostList.filter(post => post.id === id)[0];

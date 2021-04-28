@@ -6,8 +6,8 @@ function PostList(props){
   return (
     <React.Fragment>
       <hr/>
-      {Object.values(props.postList).map((post) =>
-        <Post 
+      {props.postList.sort((a,b) => b.likes - a.likes).map((post) =>
+        <Post
           whenPostClicked = { props.onPostSelection }
           topic={post.topic}
           title={post.title}
@@ -21,7 +21,7 @@ function PostList(props){
 }
 
 PostList.propTypes = {
-  postList: PropTypes.object,
+  postList: PropTypes.array,
   onPostSelection: PropTypes.func
 };
 
