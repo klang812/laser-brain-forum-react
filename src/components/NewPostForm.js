@@ -9,7 +9,7 @@ function NewPostForm(props){
     props.onNewPostCreation({topic: event.target.topic.value, 
                               title: event.target.title.value, 
                               content: event.target.content.value,
-                              likes: parseInt(event.target.likes.value),
+                              likes: 0,
                               id: v4()});
   }
   return (

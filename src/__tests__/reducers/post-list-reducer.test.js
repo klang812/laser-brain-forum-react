@@ -32,7 +32,7 @@ describe('postListReducer', () => {
   test('Should successfully add new ticket data to masterTicketList', () => {
     const { topic, title, content, likes, id } = postData;
     action = {
-      type: 'ADD_TICKET',
+      type: 'ADD_POST',
       topic: topic,
       title: title,
       content: content,
@@ -50,9 +50,9 @@ describe('postListReducer', () => {
     });
   });
 
-  test('Should successfully delete a ticket', () => {
+  test('Should successfully delete a post', () => {
     action = {
-      type: 'DELETE_TICKET',
+      type: 'DELETE_POST',
       id: 1
     };
     expect(postListReducer(currentState, action)).toEqual({

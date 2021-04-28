@@ -1,7 +1,7 @@
 export default (state = {}, action) => {
   const { topic, title, content, likes, id } = action;
   switch (action.type) {
-  case 'ADD_TICKET':
+  case 'ADD_POST':
     return Object.assign({}, state, {
       [id]: {
         topic: topic,
@@ -11,7 +11,7 @@ export default (state = {}, action) => {
         id: id
       }
     });
-  case 'DELETE_TICKET':
+  case 'DELETE_POST':
     const newState = { ...state };
     delete newState[id];
     return newState;
