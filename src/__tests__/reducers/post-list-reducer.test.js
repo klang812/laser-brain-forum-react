@@ -1,4 +1,6 @@
 import postListReducer from '../../reducers/post-list-reducer';
+import * as c from '../../actions/ActionTypes';
+
 
 describe('postListReducer', () => {
 
@@ -32,7 +34,7 @@ describe('postListReducer', () => {
   test('Should successfully add new ticket data to masterTicketList', () => {
     const { topic, title, content, likes, id } = postData;
     action = {
-      type: 'ADD_POST',
+      type: c.ADD_POST,
       topic: topic,
       title: title,
       content: content,
@@ -42,17 +44,17 @@ describe('postListReducer', () => {
     expect(postListReducer({}, action)).toEqual({
       [id] : {
         topic: topic,
-      title: title,
-      content: content,
-      likes: likes,
-      id: id
+        title: title,
+        content: content,
+        likes: likes,
+        id: id
       }
     });
   });
 
   test('Should successfully delete a post', () => {
     action = {
-      type: 'DELETE_POST',
+      type: c.DELETE_POST,
       id: 1
     };
     expect(postListReducer(currentState, action)).toEqual({

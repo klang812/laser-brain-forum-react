@@ -5,43 +5,31 @@ import PostList from './PostList';
 import EditPostForm from './EditPostForm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as a from './../actions';
 
 class PostControl extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedPost: null,
       editing: false
     };
   }
 
-  handleClick= () => {
-    if (this.state.selectedPost != null) {
-      this.setState({
-        formVisibleOnPage: false,
-        selectedPost: null,
-        editing: false
-      });
-    } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage
-      }));
-    }
+  handleClick = () => {
+  if (this.state.selectedPost != null) {
+    this.setState({
+      selectedPost: null,
+      editing: false
+    });
+  } else {
+    const { dispatch } = this.props;
+    const action = a.toggleForm();
+    dispatch(action);
   }
+}
 	
-//   handleThumbsDownClick = () => {
-//   const selectedPost = this.state.selectedPost;
-//   const thumbsDown = Object.assign({}, selectedPost, {likes: selectedPost.likes - 1});
-//   const editedMasterPostList = this.state.masterPostList
-//     .filter(post => post.id !== this.state.selectedPost.id)
-//     .concat(thumbsDown);
-//   this.setState({
-//     masterPostList: editedMasterPostList,
-//     selectedPost: thumbsDown
-//   });
-// }
 	handleThumbsUpClick = (post) => {
 		const selectedPost = post;
 		selectedPost.likes += 1;
@@ -56,18 +44,11 @@ class PostControl extends React.Component {
 
   handleAddingNewPostToList = (newPost) => {
     const { dispatch } =this.props;
-    const { id, topic, title, content, likes } = newPost;
-    const action = {
-      type: 'ADD_POST',
-      id: id,
-      topic: topic,
-      title:title,
-      content:content,
-      likes:likes
-    }
+    const action = a.addPost(newPost);
     dispatch(action);
-    this.setState({formVisibleOnPage: false});
-  }
+    const action2 = a.toggleForm();
+    dispatch(action2);
+}
 
   handleChangingSelectedPost = (id) => {
     const selectedPost = this.props.masterPostList[id];
@@ -75,17 +56,17 @@ class PostControl extends React.Component {
   }
 
   handleDeletingPost = (id) => {
-    const newMasterPostList = this.state.masterPostList.filter(post => post.id !== id);
-    this.setState({
-      masterPostList: newMasterPostList,
-      selectedPost: null
-    })
+    const {dispatch} = this.props;
+    const action = a.deletePost(id);
+    dispatch(action);
+    this.setState({selectedPost: null});
   }
 
   handleEditingPost = (postToEdit) => {
-    const editedMasterPostList = this.state.masterPostList.filter(post => post.id !== this.state.selectedPost.id).concat(postToEdit);
+    const { dispatch } = this.props;
+    const action = a.addPost(postToEdit);
+    dispatch(action);
     this.setState({
-      masterPostList: editedMasterPostList,
       editing: false,
       selectedPost: null
     });
@@ -106,7 +87,7 @@ class PostControl extends React.Component {
     } else if (this.state.selectedPost != null) {
       currentlyVisibleState = <PostDetail post = {this.state.selectedPost} onClickingDelete = {this.handleDeletingPost} onClickingEdit = {this.handleEditClick} onClickingThumbsUp = {this.handleThumbsUpClick} onClickingThumbsDown = {this.handleThumbsDownClick}/>
       buttonText = "Return to Post List";
-    } else if (this.state.formVisibleOnPage) {
+    } else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <NewPostForm onNewPostCreation = {this.handleAddingNewPostToList} />;
       buttonText = "Return to Post List";
     } else {
@@ -123,12 +104,14 @@ class PostControl extends React.Component {
 }
 
 PostControl.propTypes = {
-  masterPostList: PropTypes.object
+  masterPostList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    masterPostList: state
+    masterPostList: state.masterPostList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
